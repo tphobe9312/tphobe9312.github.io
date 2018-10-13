@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script src="https://end3r.github.io/Gamedev-Phaser-Content-Kit/demos/js/phaser.2.4.2.min.js" ></script>
+
+<script>
+
+
+    var game;
+    var bike;
+    var road;
+    var oil;
+
+
+    game = new Phaser.Game(320, 480, Phaser.AUTO, null, {
+    preload: preload,
+    create: create,
+    update: update
+    });
+
+
+    function preload(){
+        game.load.image('road', 'img2/road.jpg');
+        game.load.image('bike', 'img2/bike.png');
+        game.load.image('oil', 'img2/oil.png');
+    }
+    
+    function create() {
+
+
+        // road
+        road = game.add.tileSprite(0,0,game.world.width,game.world.height,'road');
+        road.tileScale.x = 0.8;
+
+
+        // bike
+        bike = game.add.sprite(60, 50, 'bike');
+        bike.width = bike.width - 130;
+        bike.height = bike.height - 300;
+        bike.y = 250;
+
+        game.physics.enable(bike, Phaser.Physics.ARCADE);
+        bike.body.immovable = true;
+
+
+
+        initOils();
+
+
+
+
+
+
+    }
+
+    function update() {
+
+        // road.y += 1
+        road.tilePosition.y += 6;
+
+
+        bike.x = game.input.x;
+
+
+        game.physics.arcade.collide(oil, bike, oilHitBike);
+
+
+
+    }
+
+
+    function oilHitBike(oil, bike) {
+        console.log(111);
+        oil.kill();
+    }
+
+    function initOils() {
+
+        setInterval(function(){
+
+
+
+            if(new Date().getSeconds() % 6 == 0){
+                oil = game.add.sprite(70, 10, 'oil');
+                game.physics.enable(oil, Phaser.Physics.ARCADE);
+                oil.body.velocity.y = 70;
+
+
+            }
+
+        },1000);
+        // while(1){
+        //
+        // }
+
+    }
+
+
+</script>
+</body>
+</html>
