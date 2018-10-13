@@ -26,6 +26,11 @@
 
 
     function preload(){
+
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.pageAlignHorizontally = true;
+        game.scale.pageAlignVertically = true;
+
         game.load.image('road', 'img2/road.jpg');
         game.load.image('bike', 'img2/bike.png');
         game.load.image('oil', 'img2/oil.png');
